@@ -1,0 +1,75 @@
+extends layout
+
+block content
+  div.uk-alert.uk-alert-warning.uk-text-center(data-uk-alert)
+    a.uk-close.b-close(href="/logout") Выйти
+    | Ваша партнёрская ссылка: m-kama.ru/
+    strong ?p=#{id}
+  div.uk-container-center(style="width:500px")
+    form.uk-form(action="/admin/#{id}", method="get")
+      fieldset(data-uk-margin)
+        input.uk-margin-small-right.uk-form-width-small(type="text", name="fr", placeholder="01.01.2010", data-uk-datepicker="{format:'DD.MM.YYYY', i18n: {months:['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], weekdays:['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']}}")
+        input.uk-margin-small-right.uk-form-width-small(type="text", name="to", placeholder="01.01.2020", data-uk-datepicker="{format:'DD.MM.YYYY', i18n: {months:['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'], weekdays:['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']}}")
+        div.uk-form-select.uk-button.uk-margin-small-right(data-uk-form-select)
+          span.uk-margin-small-right
+          i.uk-icon-caret-down
+          select(name="st")
+            option(value="all") все
+            option(value="new") новый
+            option(value="accepted") в обработке
+            option(value="approved") согласован
+            option(value="dispatched") отгружен
+            option(value="delivered") доставлен
+            option(value="declined") отменён
+        button(class="uk-button") Показать
+  table.uk-table.uk-table-hover.uk-table-striped
+    caption Всего заказов: #{count} Всего уникальных переходов: #{unique}
+    thead
+      tr
+        th ID
+        th Дата
+        th Сумма
+        th Кол-во
+        th Статус
+        th Комментарий
+        th &nbsp;
+    tbody
+    - for (var i = 0; i < orders.length; ++i) {
+      tr
+        td
+          a(href="http://" + url + "/admin/orders/" + orders[i].orderid)= orders[i].number || orders[i].orderid
+        td= moment(orders[i].created_at).format("DD/MM/YYYY HH:mm Z")
+        td= orders[i].sum
+        td= orders[i].quantity
+        td= status[orders[i].status]
+        td= orders[i].comment
+        td
+          button.uk-button(data-uk-toggle={target:'#i' + orders[i].orderid}) Подробности
+      tr.b-items.uk-hidden(id="i" + orders[i].orderid)
+        td(colspan="7")
+          table.uk-table.uk-table-condensed
+            thead
+              tr
+                th ID
+                th Название
+                th Кол-во
+                th Сумма
+            tbody
+            - each item in orders[i].items
+              tr
+                td= item.itemid
+                td
+                  a(href="http://" + url + "/product_by_id/" + item.productid)= item.name
+                td= item.quantity
+                td= item.sum
+    - }
+  if per_page == 10
+    ul.uk-pagination
+      - for (var i = 0; i < count/per_page; ++i) {
+        if page == i
+          li.uk-active
+            span #{i+1}
+        else
+          li
+            a(href="?p=#{i}") #{i+1}
+      - }

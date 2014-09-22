@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  div.uk-width-1-1.uk-height-1-1.uk-vertical-align.uk-text-center
+    div.b-login-complete.uk-container-center.uk-vertical-align-middle
+      div.uk-alert.uk-alert-success Вам отправлено письмо с вашим логином и паролем
+      form.uk-form(action="/", method="post")
+        fieldset.uk-text-left(data-uk-margin)
+          legend Вход в партнёрскую панель
+          div.uk-form-icon.uk-form-row.uk-margin-small-right
+            i.uk-icon-envelope
+            input.uk-form-width-medium(type="text", name="email", placeholder="E-mail")
+          div.uk-form-icon.uk-form-row
+            i.uk-icon-lock
+            input.uk-form-width-medium(type="password", name="pass", placeholder="Пароль")
+          div.uk-form-row
+            button.uk-button.uk-margin-small-right Войти
+            a.uk-button(href="/signup") Регистрация

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div.uk-width-1-1.uk-height-1-1.uk-vertical-align.uk-text-center
+    div.b-reset.uk-container-center.uk-vertical-align-middle
+      form.uk-form(action="/reset", method="post")
+        fieldset(data-uk-margin)
+          legend.uk-text-left Сброс пароля
+          div.uk-form-icon
+            i.uk-icon-envelope
+            input.uk-form-width-medium.uk-margin-small-right(type="text", placeholder="E-mail", name="email")
+            button.uk-button Сбросить пароль

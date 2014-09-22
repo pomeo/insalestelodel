@@ -1,0 +1,26 @@
+{
+    "name": "m-kama.ru",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "~4.0.0",
+        "static-favicon": "~1.0.0",
+        "morgan": "~1.0.0",
+        "cookie-parser": "~1.0.1",
+        "body-parser": "~1.0.0",
+        "debug": "~0.7.4",
+        "jade": "~1.3.0",
+        "express-session": "~1.0.4",
+        "connect-redis": "~2.0.0",
+        "stylus": "~0.44.0",
+        "xml2js"  : "~0.4.4",
+        "restler" : "~3.2.2",
+        "mongoose": "~3.8.12",
+        "moment"  : "~2.7.0",
+        "nodemailer": "~0.6.5",
+        "express-xml-bodyparser" : "~0.0.4"
+    }
+}

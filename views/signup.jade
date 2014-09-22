@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div.uk-width-1-1.uk-height-1-1.uk-vertical-align.uk-text-center
+    div.b-signup.uk-container-center.uk-vertical-align-middle
+      form.uk-form(action="/signup", method="post")
+        fieldset(data-uk-margin)
+          legend.uk-text-left Регистрация
+          div.uk-form-icon
+            i.uk-icon-envelope
+            input.uk-form-width-medium.uk-margin-small-right(type="text", placeholder="E-mail", name="email")
+            button.uk-button Зарегистрироваться

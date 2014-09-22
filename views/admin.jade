@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  div.uk-alert.uk-alert-warning.uk-text-center(data-uk-alert)
+    a.uk-close.b-close(href="/logout") Выйти
+    | Панель администратора
+  div.uk-container-center(style="width:500px")
+  table.uk-table.uk-table-hover.uk-table-striped
+    caption Всего партнёров: #{count}
+    thead
+      tr
+        th ID партнёра
+        th E-mail
+        th Кол-во уникальных переходов
+        th Кол-во заказов
+        th Зарегистрирован
+        th
+        th
+    tbody
+    - for (var i = 0; i < users.length; ++i) {
+      tr
+        td= users[i].partnerid
+        td= users[i].email
+        td= users[i].unique
+        td= users[i].orders
+        td= moment(users[i].created_at).format("DD/MM/YYYY HH:mm Z")
+        td
+          a.uk-button(href="/admin/#{users[i].partnerid}") Подробности
+        td
+          if (users[i].enabled)
+            if (users[i].admin)
+              button.uk-button.uk-button-danger(type="button", disabled) Выключить
+            else
+              a.uk-button.uk-button-danger(href="/admin/disable/#{users[i].partnerid}") Выключить
+          else
+            a.uk-button.uk-button-success(href="/admin/enable/#{users[i].partnerid}") Включить
+    - }
+  if per_page == 10
+    ul.uk-pagination
+      - for (var i = 0; i < count/per_page; ++i) {
+        if page == i
+          li.uk-active
+            span #{i+1}
+        else
+          li
+            a(href="?p=#{i}") #{i+1}
+      - }
